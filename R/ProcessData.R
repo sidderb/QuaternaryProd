@@ -64,7 +64,7 @@ check_relations <- function(relations, entities){
 # This function checks the validity of the entities data frame
 check_entities <- function(entities){
 
-  if(ncol(entities) != 4 | !all(names(entities) == c("uid", "id", "ensembleid", "symbol"))){
+  if(ncol(entities) != 4 | !all(names(entities) == c("uid", "id", "type", "symbol"))){
     stop("Please provide a valid entities data frame containing columns: uid, id, symbol and type!")
   }
     
@@ -88,9 +88,9 @@ check_entities <- function(entities){
     stop("In entities, column uid must be of type integer!")
   }
   
-  if(!is.character(entities$id) | !is.character(entities$symbol) | !is.character(entities$ensembleid)){
-    stop("In entities, columns id, ensembleid and symbol must be of type character!")
-  }
+  #if(!is.character(entities$id) | !is.character(entities$symbol) | !is.character(entities$ensembleid)){
+  #  stop("In entities, columns id, ensembleid and symbol must be of type character!")
+  #}
   
 
 }
@@ -409,8 +409,8 @@ RunCRE_HSAStringDB <- function(gene_expression_data, method = "Quaternary",
   
   for(p.s in 1:length(u.hyps)){
 
-    results[(2*(p.s-1)+1), 1] <- entities$ensembleid[which(entities$uid == u.hyps[p.s])]
-    results[(2*p.s), 1]       <- entities$ensembleid[which(entities$uid == u.hyps[p.s])]
+    results[(2*(p.s-1)+1), 1] <- entities$id[which(entities$uid == u.hyps[p.s])]
+    results[(2*p.s), 1]       <- entities$id[which(entities$uid == u.hyps[p.s])]
     results[(2*(p.s-1)+1), 2] <- entities$symbol[which(entities$uid == u.hyps[p.s])]
     results[(2*p.s), 2]       <- entities$symbol[which(entities$uid == u.hyps[p.s])]
     results[(2*(p.s-1)+1), 3] <- 'up'
